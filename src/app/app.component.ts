@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {ArticleService} from './article.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'ngApp';
+  searchText : string;
+  title = 'Search App';
+  articles: any;
+
+  constructor(private articleService: ArticleService){}
+
+  onSubmit(){
+    console.log(this.searchText);
+    this.articleService.getArticles(this.searchText)
+      .subscribe((articles)=>{
+        console.log(articles);
+        this.articles = articles;
+      })
+  }
 }
